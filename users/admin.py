@@ -3,8 +3,6 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from .models import Personnel
 
-admin.site.unregister(User)
-
 # Customize the UserAdmin to handle the custom fields of Personnel
 class PersonnelAdmin(UserAdmin):
     model = Personnel

@@ -60,6 +60,6 @@ def delete_part(request, part_id):
 @login_required
 def parts_list(request):
     # Example: Fetch parts based on the team of the logged-in personnel
-    parts = Part.objects.filter(team=request.user.personnel.teams.first())
+    parts = Part.objects.filter(team=request.user.teams.first())
     return render(request, 'parts/parts_list.html', {'parts': parts})
 
