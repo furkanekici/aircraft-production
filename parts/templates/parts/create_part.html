@@ -1,0 +1,13 @@
+<!-- parts/templates/parts/create_part.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Create a Part</h2>
+  <form method="POST">
+    {% csrf_token %}  <!-- This protects the form against CSRF attacks -->
+    {{ form.as_p }}  <!-- This renders the form fields in paragraph tags -->
+    <button type="submit">Save</button>
+  </form>
+{% endblock %}
+

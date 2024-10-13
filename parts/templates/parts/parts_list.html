@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Parts List</h2>
+  
+  <table>
+    <tr>
+      <th>Part Type</th>
+      <th>Aircraft Type</th>
+      <th>Created At</th>
+      <th>Actions</th>
+    </tr>
+    {% for part in parts %}
+    <tr>
+      <td>{{ part.part_type }}</td>
+      <td>{{ part.aircraft_type }}</td>
+      <td>{{ part.created_at }}</td>
+      <td>
+        <a href="{% url 'update_part' part.id %}">Update</a> | 
+        <a href="{% url 'delete_part' part.id %}">Delete</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="4">No parts available for your team.</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <a href="{% url 'create_part' %}">Create New Part</a>
+{% endblock %}
+
