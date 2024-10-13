@@ -9,8 +9,8 @@ class Team(models.Model):
         ('assembly', 'Assembly Team'),
     ]
 
-    team_type = models.CharField(max_length=10, choices=TEAM_TYPES)
-    personnel = models.ManyToManyField('users.Personnel')
+    team_type = models.CharField(max_length=20, choices=TEAM_TYPES)
+    personnel = models.ManyToManyField('users.Personnel', related_name='team_members', blank=True)
 
     def __str__(self):
         return self.team_type
