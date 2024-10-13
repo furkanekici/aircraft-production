@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from parts.models import Part
 from .models import Aircraft
+from rest_framework import viewsets
+from .serializers import AircraftSerializer
 
 @login_required
 def assemble_aircraft(request):
@@ -67,3 +69,7 @@ def aircraft_list(request):
     # Fetch and display all assembled aircraft
     aircrafts = Aircraft.objects.filter(assembled=True)
     return render(request, 'aircrafts/aircraft_list.html', {'aircrafts': aircrafts})
+
+class AircraftViewSet(viewsets.ModelViewSet):
+    queryset = Aircraft.objects.all()
+    serializer_class = AircraftSerializer

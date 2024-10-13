@@ -1,10 +1,10 @@
-# parts/views.py
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from .models import Part
 from .forms import PartForm
+from rest_framework import viewsets
+from .serializers import PartSerializer
 
 # Create Part View
 @login_required
@@ -14,9 +14,20 @@ def create_part(request):
         if form.is_valid():
             part = form.save(commit=False)
             # Assign the part to the team of the logged-in personnel
-            part.team = request.user.personnel.teams.first()
+            team = request.user.personnel.teams.first()
+            
+            # Ensure that the team's responsibility matches the part type
+            if (
+                (part.part_type == 'wing' and team.team_type != 'wing') or
+                (part.part_type == 'fuselage' and team.team_type != 'fuselage') or
+                (part.part_type == 'tail' and team.team_type != 'tail') or
+                (part.part_type == 'avionics' and team.team_type != 'avionics')
+            ):
+                return HttpResponseForbidden("Your team cannot create this type of part.")
+            
+            part.team = team
             part.save()
-            return redirect('parts_list')  # Redirect to a parts list view (to be implemented)
+            return redirect('parts_list')  # Redirect to a parts list view
     else:
         form = PartForm()
 
@@ -63,3 +74,6 @@ def parts_list(request):
     parts = Part.objects.filter(team=request.user.teams.first())
     return render(request, 'parts/parts_list.html', {'parts': parts})
 
+class PartViewSet(viewsets.ModelViewSet):
+    queryset = Part.objects.all()
+    serializer_class = PartSerializer
