@@ -1,0 +1,37 @@
+<!-- aircrafts/templates/aircrafts/assemble_aircraft.html -->
+
+<h2>Assemble Aircraft: {{ aircraft_type }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <label for="wing">Select Wing:</label>
+    <select name="wing" id="wing">
+        {% for wing in wings %}
+            <option value="{{ wing.id }}">{{ wing }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="fuselage">Select Fuselage:</label>
+    <select name="fuselage" id="fuselage">
+        {% for fuselage in fuselages %}
+            <option value="{{ fuselage.id }}">{{ fuselage }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="tail">Select Tail:</label>
+    <select name="tail" id="tail">
+        {% for tail in tails %}
+            <option value="{{ tail.id }}">{{ tail }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="avionics">Select Avionics:</label>
+    <select name="avionics" id="avionics">
+        {% for avionics in avionics %}
+            <option value="{{ avionics.id }}">{{ avionics }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Assemble Aircraft</button>
+</form>
+

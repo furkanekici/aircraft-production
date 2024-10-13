@@ -1,0 +1,9 @@
+<!-- aircrafts/templates/aircrafts/aircraft_list.html -->
+
+<h2>Assembled Aircraft</h2>
+<ul>
+    {% for aircraft in aircrafts %}
+        <li>{{ aircraft.aircraft_type }} - Assembled on {{ aircraft.created_at }}</li>
+    {% endfor %}
+</ul>
+

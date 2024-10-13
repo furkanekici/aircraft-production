@@ -9,10 +9,10 @@ class Aircraft(models.Model):
     ]
 
     aircraft_type = models.CharField(max_length=20, choices=AIRCRAFT_TYPES)
-    wing = models.OneToOneField('parts.Part', related_name='wing', on_delete=models.CASCADE, null=True)
-    fuselage = models.OneToOneField('parts.Part', related_name='fuselage', on_delete=models.CASCADE, null=True)
-    tail = models.OneToOneField('parts.Part', related_name='tail', on_delete=models.CASCADE, null=True)
-    avionics = models.OneToOneField('parts.Part', related_name='avionics', on_delete=models.CASCADE, null=True)
+    wing = models.OneToOneField('parts.Part', related_name='wing', on_delete=models.CASCADE, null=True, blank=True)
+    fuselage = models.OneToOneField('parts.Part', related_name='fuselage', on_delete=models.CASCADE, null=True, blank=True)
+    tail = models.OneToOneField('parts.Part', related_name='tail', on_delete=models.CASCADE, null=True, blank=True)
+    avionics = models.OneToOneField('parts.Part', related_name='avionics', on_delete=models.CASCADE, null=True, blank=True)
     assembled = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
